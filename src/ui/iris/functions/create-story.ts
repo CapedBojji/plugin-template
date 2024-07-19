@@ -1,6 +1,6 @@
 import Iris from "@rbxts/iris";
 
-import type Input from "shared/modules/iris/input";
+import type Input from "package/modules/iris/input";
 
 export interface IrisStoryProps {
 	component: (...args: Array<unknown>) => void;
@@ -9,7 +9,7 @@ export interface IrisStoryProps {
 }
 
 export async function createIrisStory(props: IrisStoryProps): Promise<() => void> {
-	const input = (await import("shared/modules/iris/input")) as Input;
+	const input = (await import("package/modules/iris/input")) as Input;
 	input.SinkFrame.Parent = props.parent;
 
 	Iris.Internal._utility.UserInputService = input;
