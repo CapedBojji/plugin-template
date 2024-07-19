@@ -23,3 +23,6 @@ sourcemap.json
 # Roblox Ts
 include
 sourcemap.json
+
+# pnpm
+pnpm-lock.yaml
