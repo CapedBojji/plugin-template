@@ -23,7 +23,7 @@ trap cleanup SIGINT SIGTERM
 pnpm exec rbxtsc --verbose --watch &
 pid1=$!
 
-rojo serve &
+rojo serve serve.project.json &
 pid2=$!
 
 # Wait for both commands to complete
