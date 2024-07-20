@@ -29,11 +29,13 @@ function mountAsCoreGui<T>({ name, component, plugin, props, toolbar }: MountPro
 	const irisContainer = new Instance("ScreenGui");
 	irisContainer.Name = name ?? "Iris";
 	irisContainer.Parent = CORE_GUI;
+	irisContainer.Enabled = false;
 
 	// Set up Iris
 	Iris.UpdateGlobalConfig({
 		UseScreenGUIs: false,
 	});
+	Iris.Disabled = true;
 	Iris.Init(irisContainer);
 
 	// Handle the input
