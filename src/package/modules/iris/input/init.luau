@@ -66,7 +66,7 @@ SinkFrame.InputChanged:Connect(inputChanged)
 SinkFrame.InputEnded:Connect(inputEnded)
 SinkFrame.MouseMoved:Connect(mouseMoved)
 
-table.insert(Input._connections, UserInputService.InputBegan:Connect(inputBegan))
+-- table.insert(Input._connections, UserInputService.InputBegan:Connect(inputBegan))
 table.insert(Input._connections, UserInputService.InputChanged:Connect(inputChanged))
 table.insert(Input._connections, UserInputService.InputEnded:Connect(inputEnded))
 
