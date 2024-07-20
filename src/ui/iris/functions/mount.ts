@@ -116,6 +116,9 @@ async function mountAsWidget<T>({
 		window.state.size.set(widget.AbsoluteSize);
 		window.state.position.set(Vector2.zero);
 		component(plugin, input, props);
+		Iris.Window(["Window"]).state.size.set(new Vector2(100, 100));
+		Iris.End();
+		Iris.End();
 	});
 
 	widget.BindToClose(function () {
