@@ -6,6 +6,7 @@ import type Input from "package/modules/iris/input";
 export interface MountProps<T> {
 	component: (props?: T, input?: Input) => void;
 	key: Enum.KeyCode;
+	plugin: Plugin;
 	props?: T;
 }
 
