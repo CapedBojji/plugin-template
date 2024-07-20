@@ -41,6 +41,9 @@ importers:
       '@rbxts/reflex':
         specifier: 4.3.1
         version: 4.3.1
+      '@rbxts/ripple':
+        specifier: 0.8.2
+        version: 0.8.2
       '@rbxts/services':
         specifier: ^1.5.4
         version: 1.5.4
@@ -701,6 +704,9 @@ packages:
 
   '@rbxts/reflex@4.3.1':
     resolution: {integrity: sha512-S5MbEpHKeRh9NWhwGJ789WbUsmlAlpQziWaNK4+kz1EpaaQ7uHQMZAuN1DYl4+QkqmOSuPlj04COwmArBGWH1Q==}
+
+  '@rbxts/ripple@0.8.2':
+    resolution: {integrity: sha512-1F+yA8ugw0LEDBerQfIiIdUDoOfwz8O86GkH+sJkBViC/zJWDCZdrlzcdk7G7adePqkeBRfPp89g/4dUzZ4JQQ==}
 
   '@rbxts/services@1.5.4':
     resolution: {integrity: sha512-Klh+gRIT8zy3xRTX1YD6FZ9nAMzkzPLTHmciigt59PEF7PJXo31CF0IU0RegQ7VSMrz1iOnXwxbIwy3htcMfOA==}
@@ -4025,6 +4031,8 @@ snapshots:
       '@rbxts/react-vendor': 0.3.6
 
   '@rbxts/reflex@4.3.1': {}
+
+  '@rbxts/ripple@0.8.2': {}
 
   '@rbxts/services@1.5.4': {}
 
