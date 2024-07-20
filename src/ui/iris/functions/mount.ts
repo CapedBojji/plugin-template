@@ -68,6 +68,7 @@ function mountAsCoreGui<T>({ name, component, plugin, props, toolbar }: MountPro
 		connection.Disconnect();
 		enabled = false;
 		button.SetActive(false);
+		irisContainer.Destroy();
 		Iris.Disabled = true;
 	});
 }
