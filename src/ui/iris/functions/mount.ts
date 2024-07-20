@@ -11,9 +11,17 @@ export interface MountProps<T> {
 	props?: T;
 	toolbar: PluginToolbar;
 	useCoreGui: boolean;
+	windowSize?: Vector2;
 }
 
-function mountAsCoreGui<T>({ name, component, plugin, props, toolbar }: MountProps<T>): void {
+function mountAsCoreGui<T>({
+	name,
+	component,
+	plugin,
+	props,
+	toolbar,
+	windowSize,
+}: MountProps<T>): void {
 	// States
 	let enabled = false;
 
@@ -50,8 +58,11 @@ function mountAsCoreGui<T>({ name, component, plugin, props, toolbar }: MountPro
 
 	// Render the component
 	Iris.Connect(() => {
-		Iris.ShowDemoWindow();
+		Iris.Window(["Window", false, false, false, true], {
+			size: windowSize ?? new Vector2(500, 750),
+		});
 		component(plugin, UserInputService as unknown as Input, props);
+		Iris.End();
 	});
 
 	// Handle the button click
@@ -112,12 +123,10 @@ async function mountAsWidget<T>({
 
 	// Render the component
 	Iris.Connect(() => {
-		const window = Iris.Window(["Window"]);
+		const window = Iris.Window(["Window", false, false, false, true, true, false, true]);
 		window.state.size.set(widget.AbsoluteSize);
 		window.state.position.set(Vector2.zero);
 		component(plugin, input, props);
-		Iris.Window(["Window"]).state.size.set(new Vector2(100, 100));
-		Iris.End();
 		Iris.End();
 	});
 
