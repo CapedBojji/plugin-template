@@ -3,6 +3,7 @@ import { UserInputService } from "@rbxts/services";
 
 import { CORE_GUI } from "config";
 import type Input from "package/modules/iris/input";
+import { $print } from "rbxts-transform-debug";
 
 export interface MountProps<T> {
 	component: (plugin: Plugin, input: Input, props?: T) => void;
@@ -50,6 +51,7 @@ function mountAsCoreGui<T>({ name, component, plugin, props, toolbar }: MountPro
 
 	// Render the component
 	Iris.Connect(() => {
+		$print(visible);
 		if (!visible) return;
 		Iris.ShowDemoWindow();
 		component(plugin, UserInputService as unknown as Input, props);
@@ -65,6 +67,7 @@ function mountAsCoreGui<T>({ name, component, plugin, props, toolbar }: MountPro
 
 	// Handle plugin unload
 	plugin.Unloading.Connect(() => {
+		print("Unloading");
 		Iris.Shutdown();
 		connection.Disconnect();
 		enabled = false;
