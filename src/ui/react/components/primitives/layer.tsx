@@ -1,9 +1,5 @@
 import React from "@rbxts/react";
 
-import { IS_EDIT } from "config";
-
-import Group from "./group";
-
 export interface LayerProps extends React.PropsWithChildren {
 	/** The display order of the layer. */
 	readonly DisplayOrder?: number;
@@ -32,17 +28,18 @@ export interface LayerProps extends React.PropsWithChildren {
  * @see https://developer.roblox.com/en-us/api-reference/class/ScreenGui
  */
 export default function Layer({ DisplayOrder, children }: LayerProps): React.Element {
-	return IS_EDIT ? (
-		<Group
-			Native={{
-				AnchorPoint: new Vector2(0, 0),
-				Position: new UDim2(0, 0, 0, 0),
-				ZIndex: DisplayOrder ?? 0,
-			}}
-		>
-			{children}
-		</Group>
-	) : (
+	return (
+		// IS_EDIT ? (
+		// <Group
+		// Native={{
+		// AnchorPoint: new Vector2(0, 0),
+		// Position: new UDim2(0, 0, 0, 0),
+		// ZIndex: DisplayOrder ?? 0,
+		// }}
+		// >
+		// {children}
+		// </Group>
+		// ) :
 		<screengui
 			DisplayOrder={DisplayOrder}
 			IgnoreGuiInset={true}
