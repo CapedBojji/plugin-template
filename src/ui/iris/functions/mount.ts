@@ -1,24 +1,56 @@
 import Iris, { State } from "@rbxts/iris";
-import { UserInputService } from "@rbxts/services";
 
+import { CORE_GUI } from "config";
 import type Input from "package/modules/iris/input";
 
 export interface MountProps<T> {
-	component: (props?: T, input?: Input) => void;
-	key: Enum.KeyCode;
+	component: (plugin: Plugin, input: Input, props?: T) => void;
 	plugin: Plugin;
 	props?: T;
+	toolbar: PluginToolbar;
 }
 
-export function mountIris<T>(props: MountProps<T>): void {
-	const toggle = State(false);
-	UserInputService.InputBegan.Connect(input => {
-		if (input.UserInputType !== Enum.UserInputType.Keyboard) return;
-		if (input.KeyCode !== props.key) return;
-		toggle.set(!toggle.get());
+export async function mountIris<T>(props: MountProps<T>): Promise<void> {
+	// Create Iris button
+	const button = props.toolbar.CreateButton("Iris", "Open Iris", "rbxassetid://7201770790");
+
+	// Create the Iris container
+	const irisContainer = new Instance("Folder");
+	irisContainer.Name = "Iris";
+	irisContainer.Parent = CORE_GUI;
+
+	// Handle the input
+	const input = (await import("package/modules/iris/input")) as Input;
+	input.SinkFrame.Parent = irisContainer;
+	Iris.Internal._utility.UserInputService = input;
+	Iris.UpdateGlobalConfig({
+		UseScreenGUIs: false,
 	});
+
+	// Initialize Iris
+	Iris.Init(irisContainer);
+
+	// Render the component
+	const toggle = State(false);
 	Iris.Connect(() => {
-		if (!toggle.get()) return;
-		props.component(props.props);
+		Iris.ShowDemoWindow();
+		props.component(props.plugin, input, props.props);
+	});
+
+	// Handle the button click
+	button.Click.Connect(() => {
+		toggle.set(!toggle.get());
+		Iris.Disabled = !toggle.get();
+		button.SetActive(toggle.get());
+	});
+
+	// Handle plugin unload
+	props.plugin.Unloading.Connect(() => {
+		Iris.Shutdown();
+		for (const connection of input._connections) connection.Disconnect();
+		input.SinkFrame.Destroy();
+		toggle.set(false);
+		button.SetActive(false);
+		Iris.Disabled = true;
 	});
 }
