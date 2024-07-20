@@ -3,7 +3,6 @@ import { UserInputService } from "@rbxts/services";
 
 import { CORE_GUI } from "config";
 import type Input from "package/modules/iris/input";
-import { $print } from "rbxts-transform-debug";
 
 export interface MountProps<T> {
 	component: (plugin: Plugin, input: Input, props?: T) => void;
@@ -46,12 +45,10 @@ function mountAsCoreGui<T>({ name, component, plugin, props, toolbar }: MountPro
 		if (inputObject.UserInputState !== Enum.UserInputState.Begin) return;
 		if (!enabled) return;
 		visible = !visible;
-		enabled = visible;
 	});
 
 	// Render the component
 	Iris.Connect(() => {
-		$print(visible);
 		if (!visible) return;
 		Iris.ShowDemoWindow();
 		component(plugin, UserInputService as unknown as Input, props);
@@ -61,8 +58,9 @@ function mountAsCoreGui<T>({ name, component, plugin, props, toolbar }: MountPro
 	button.Click.Connect(() => {
 		enabled = !enabled;
 		visible = enabled;
-		Iris.Disabled = !enabled;
 		button.SetActive(enabled);
+		if (!enabled) Iris.ForceRefresh();
+		Iris.Disabled = !enabled;
 	});
 
 	// Handle plugin unload
