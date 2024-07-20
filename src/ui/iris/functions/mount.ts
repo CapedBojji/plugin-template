@@ -58,9 +58,9 @@ function mountAsCoreGui<T>({ name, component, plugin, props, toolbar }: MountPro
 	button.Click.Connect(() => {
 		enabled = !enabled;
 		visible = enabled;
-		button.SetActive(enabled);
-		if (!enabled) Iris.ForceRefresh();
+		if (!enabled) Iris.Internal._cycle();
 		Iris.Disabled = !enabled;
+		button.SetActive(enabled);
 	});
 
 	// Handle plugin unload
