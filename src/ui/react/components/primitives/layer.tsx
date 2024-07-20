@@ -1,6 +1,6 @@
 import React from "@rbxts/react";
 
-import { IS_EDIT } from "shared/constants";
+import { IS_EDIT } from "config";
 
 import Group from "./group";
 

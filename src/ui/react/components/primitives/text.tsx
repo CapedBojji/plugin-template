@@ -1,8 +1,8 @@
 import React from "@rbxts/react";
 
-import { useRem } from "client/ui/react/hooks/use-rem";
-import { useTheme } from "client/ui/react/hooks/use-theme";
 import type { BindingValue } from "types/react";
+import { useRem } from "ui/react/hooks/use-rem";
+import { useTheme } from "ui/react/hooks/use-theme";
 
 import type { FrameProps } from "./frame";
 
@@ -64,7 +64,7 @@ export default function Text({
 			{...Native}
 			AnchorPoint={AnchorPoint ?? new Vector2(0.5, 0.5)}
 			BackgroundTransparency={BackgroundTransparency ?? 1}
-			Font={Font ?? theme?.fonts.primary.regular}
+			Font={Font ?? theme.fonts.primary.regular}
 			Position={Position ?? new UDim2(0.5, 0, 0.5, 0)}
 			Text={_Text}
 			TextColor3={TextColor}
