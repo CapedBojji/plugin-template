@@ -16,7 +16,6 @@ export interface MountProps<T> {
 function mountAsCoreGui<T>({ name, component, plugin, props, toolbar }: MountProps<T>): void {
 	// States
 	let enabled = false;
-	let visible = false;
 
 	// Create Iris button on toolbar
 	const button = toolbar.CreateButton(
@@ -44,12 +43,11 @@ function mountAsCoreGui<T>({ name, component, plugin, props, toolbar }: MountPro
 		if (!inputObject.IsModifierKeyDown(Enum.ModifierKey.Ctrl)) return;
 		if (inputObject.UserInputState !== Enum.UserInputState.Begin) return;
 		if (!enabled) return;
-		visible = !visible;
+		irisContainer.Enabled = !irisContainer.Enabled;
 	});
 
 	// Render the component
 	Iris.Connect(() => {
-		if (!visible) return;
 		Iris.ShowDemoWindow();
 		component(plugin, UserInputService as unknown as Input, props);
 	});
@@ -57,19 +55,16 @@ function mountAsCoreGui<T>({ name, component, plugin, props, toolbar }: MountPro
 	// Handle the button click
 	button.Click.Connect(() => {
 		enabled = !enabled;
-		visible = enabled;
-		if (!enabled) Iris.Internal._cycle();
 		Iris.Disabled = !enabled;
+		irisContainer.Enabled = enabled;
 		button.SetActive(enabled);
 	});
 
 	// Handle plugin unload
 	plugin.Unloading.Connect(() => {
-		print("Unloading");
 		Iris.Shutdown();
 		connection.Disconnect();
 		enabled = false;
-		visible = false;
 		button.SetActive(false);
 		Iris.Disabled = true;
 	});
